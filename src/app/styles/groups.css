@@ -1,15 +1,18 @@
-.row > .col {
-    border-style: solid;
-    border-radius: 10px;
-    border-color: #FE107E;
-    margin: 10px;   
-    height:auto;
-    display: flexbox;
-   }
+:root {
+    --colour1: #FE107E;
+    --colour2: rgb(247, 110, 245);
+    --colour3: #FAB4D5;
+    --colour4: #F7489A;
+
+    --shadow: 0 10px 30px rgba(0, 103, 177, 0.15);
+    --radius: 16px;
+    --transition: all 0.3s ease;
+    --gradient: linear-gradient(135deg, var(--colour1), var(--colour2));
+  }
    
    h1 {
        font-family: Arial, Helvetica, sans-serif;
-       color: #FE107E;
+       color: var(--colour1);
    }
    
    button {
@@ -19,13 +22,14 @@
        height: 50px;;
        border-width: 5px;
        border-radius: 10px;
-       border-color: #FE107E;
+       border-color: var(--colour1);
        border-style: solid;
        font-family: Arial, Helvetica, sans-serif;
        font-size: 32px;
        text-align: center;
-       color: #FE107E;
-       background-color: #FAB4D5;
+       color: var(--colour1);
+       background-color: var(--gradient);
+       
    }
 
 #user {

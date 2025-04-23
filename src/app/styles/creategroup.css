@@ -1,3 +1,15 @@
+:root {
+    --colour1: #FE107E;
+    --colour2: rgb(247, 110, 245);
+    --colour3: #FAB4D5;
+    --colour4: #F7489A;
+
+    --shadow: 0 10px 30px rgba(0, 103, 177, 0.15);
+    --radius: 16px;
+    --transition: all 0.3s ease;
+    --gradient: linear-gradient(135deg, var(--colour1), var(--colour2));
+  }
+
 body{
     background-color: #F7E8EF;
   }

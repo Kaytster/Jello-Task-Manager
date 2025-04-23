@@ -1,4 +1,4 @@
-
+'use server'
 import Header from "../components/header";
 import 'bootstrap/dist/css/bootstrap.css'
 import '../globals.css';
@@ -17,14 +17,12 @@ async function getUserDeets(userId) {
 export default async function Home() {
 const cookieStore = cookies();
     const userIdString = await cookieStore.get('userId')?.value;
-    console.log('1. User ID from cookie (string):', userIdString);
 
     if (!userIdString) {
         return <div>Please log in!</div>;
     }
 
     const userId = parseInt(userIdString, 10);
-    console.log('2. User ID (number):', userId);
 
     if (isNaN(userId)) {
         return <div>Invalid user ID. Please log in again.</div>;
@@ -42,11 +40,11 @@ const cookieStore = cookies();
           <br/>
           <br/>
           <div className="row"> 
-            <div className="card">
+            <div className="card" style={{width:'fit-content'}}>
               <img
                   src={`/${userId}.png`} 
                   alt={`Profile picture of user`}
-                  style={{ width: '300px', height: '300px', borderRadius: '50%', marginRight: '10px' }} 
+                  style={{ width: '300px', height: '300px', borderRadius: '50%', margin: 'auto' }} 
               />
             </div>
           {FullDetails.map((Deets) => (

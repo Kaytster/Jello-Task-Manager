@@ -20,7 +20,7 @@ export async function POST(req, res) {
             return NextResponse.json({ message: 'Failed to create list in the database' }, { status: 500 });
         }
     } catch (error) {
-        console.error('Database error creating list:', error);
+        console.error('Database error creating list', error);
         return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
     }
 }

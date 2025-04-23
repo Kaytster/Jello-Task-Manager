@@ -10,8 +10,7 @@ import Link from "next/link";
 export default function Home() {
 
   return (
-    <html>
-      <body>
+    <>
         <Header />
         <main>
           <br/>
@@ -40,11 +39,14 @@ export default function Home() {
                 </div>
               </section>
               <section className="card">
-
+              <img 
+                  src={`/example.jpg`} 
+                  alt={`Profile picture of user`}
+                  style={{ width: '100%', height: '300px',}} 
+                  />
               </section>
             </div>
         </main>
-      </body>
-    </html>
+      </>
   );
 }

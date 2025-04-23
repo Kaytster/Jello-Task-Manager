@@ -3,10 +3,11 @@ import Cookies from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../globals.css';
 import '../styles/login.css';
-import { loginAction } from './loginAction'; // Import the server action!
-import { useActionState } from 'react';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation'; 
+
+//Form Validation Tutorial: https://www.geeksforgeeks.org/how-to-add-form-validation-in-next-js/
+//js-cookie: https://github.com/js-cookie/js-cookie
 
 export default function Login() {
     const router = useRouter();
@@ -20,10 +21,9 @@ export default function Login() {
         validateForm();
     }, [username, password]);
 
-    // Validate form
+    // Validating the form
     const validateForm = () => {
         let errors = {};
-        console.log('Validating username and password'); 
 
         if (!username) {
             errors.username = 'Username is required.';
@@ -37,7 +37,6 @@ export default function Login() {
 
         setErrors(errors);
         setIsFormValid(Object.keys(errors).length === 0);
-        console.log('Validation complete', errors, isFormValid); 
     };
 
     const handleSubmit = async (e) => {
@@ -47,41 +46,33 @@ export default function Login() {
 
         if (isFormValid) { 
             try {
-                console.log('Sending login request'); 
-                const response = await fetch('/api', { //api that validates against the database
+                const response = await fetch('/api', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ username, password }),
                 });
 
                 const result = await response.json();
-                console.log('API response:', result); 
 
                 if (response.ok) {
-                    console.log('Login successful!');
 
-                    if (result.userId) { // Check if userId is present in the response
-                        Cookies.set('userId', String(result.userId), { expires: 7 }); // Corrected line!
-                        console.log('User ID cookie set:', result.userId);
+                    //Setting the cookies for User ID and Account Type, so they can be used in other pages
+                    if (result.userId) { 
+                        Cookies.set('userId', String(result.userId), { expires: 7 }); 
                     }
 
                     if (result.accountType) {
                         Cookies.set('accountType', result.accountType, { expires: 7 });
-                        console.log('Account Type cookie set:', result.accountType);
                     }
                     
-                    // Navigate to another page when logged in
-                    router.push('/tasklists');
+                    router.push('/dashboard');
                 } else {
                     setErrors({ form: result.message });
-                    console.log('Login failed:', result.message); 
                 }
             } catch (error) {
-                console.error('Error during login:', error);
                 setErrors({ form: 'Internal server error' });
             }
         } else {
-            console.log('Form has errors. Please correct them.');
         }
     };
 

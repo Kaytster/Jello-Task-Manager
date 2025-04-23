@@ -1,38 +1,29 @@
 import bcrypt from 'bcrypt';
-import { verifyAccountCreation } from '../../lib/db'; // Your database function
+import { verifyAccountCreation } from '../../lib/db'; 
+
+//bcrypt: https://auth0.com/blog/hashing-in-action-understanding-bcrypt/
 
 export async function POST(request) {
-    console.log('API register handler invoked');
     const { firstname, lastname, email, username, password, type} = await request.json();
-    console.log('Received registration request:', { firstname, lastname, email, username });
 
     try {
-        // Hash the password
-        const hashedPassword = await bcrypt.hash(password, 10); // 10 is the salt rounds
+        // Hashing the password to make it secure
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-        console.log('Calling verifyAccountCreation with:', {
-            firstname,
-            lastname,
-            email,
-            username,
-            hashedPassword,
-            type,
-        });
-
-        // Create the user in the database
+        // Creating the user in the database
         const success = await verifyAccountCreation(firstname, lastname, email, username, hashedPassword, type);
-        console.log('verifyAccountCreation returned:', success);
 
+        //Error Handling
         if (success) {
-            return new Response(JSON.stringify({ message: 'Registration successful' }), {
-                status: 201, // 201 Created
+            return new Response(JSON.stringify({ message: 'Registration is successful!' }), {
+                status: 201,
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
         } else {
-            return new Response(JSON.stringify({ message: 'Registration failed' }), {
-                status: 400, // 400 Bad Request
+            return new Response(JSON.stringify({ message: 'Registration has failed' }), {
+                status: 400,
                 headers: {
                     'Content-Type': 'application/json',
                 },

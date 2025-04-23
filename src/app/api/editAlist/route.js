@@ -1,14 +1,12 @@
-// src/app/api/createTask/route.js
 import { execute, createTaskAndLinkToList } from '../../lib/db';
 import { NextResponse } from 'next/server';
 
 export async function GET(req) {
-    console.log('API tasks GET handler invoked');
     const searchParams = req.nextUrl.searchParams;
     const listId = searchParams.get('listId');
 
     if (!listId) {
-        return NextResponse.json({ message: 'Missing listId parameter' }, { status: 400 });
+        return NextResponse.json({ message: 'No List ID' }, { status: 400 });
     }
 
     try {
@@ -16,13 +14,12 @@ export async function GET(req) {
         const [tasks] = await execute(query, [listId]);
         return NextResponse.json(tasks, { status: 200 });
     } catch (error) {
-        console.error('Error fetching tasks:', error);
+        console.error('Error fetching tasks', error);
         return NextResponse.json({ message: 'Failed to fetch tasks' }, { status: 500 });
     }
 }
 
 export async function POST(req) {
-    console.log('API createTask POST handler invoked');
     const { name, content, status, userId, listId } = await req.json();
 
     if (!name || !content || !userId || !listId) {
@@ -38,7 +35,7 @@ export async function POST(req) {
             return NextResponse.json({ message: 'Failed to create and link task' }, { status: 500 });
         }
     } catch (error) {
-        console.error('Error creating and linking task:', error);
+        console.error('Error creating and linking task', error);
         return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
     }
 }

@@ -2,11 +2,10 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import '../globals.css';
 import '../styles/signup.css';
-import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation'; 
 
-//Validation to make sure the user has entered information
+//Form Validation Tutorial: https://www.geeksforgeeks.org/how-to-add-form-validation-in-next-js/
 
 const Signup = () => {
     const router = useRouter();
@@ -24,10 +23,9 @@ const Signup = () => {
         validateForm();
     }, [username, password]);
 
-    // Validate form
+    // Validating the form
     const validateForm = () => {
         let errors = {};
-        console.log('Validating creation'); 
 
         if (!firstname) {
             errors.firstname = 'First Name is required.';
@@ -53,78 +51,53 @@ const Signup = () => {
 
         setErrors(errors);
         setIsFormValid(Object.keys(errors).length === 0);
-        console.log('Validation complete', errors, isFormValid); 
     };
 
     const handleSubmit = async (e) => {
-        console.log("handleSubmit is running!"); // Add this line
         e.preventDefault();
-        console.log("Data being sent:", { firstname, lastname, email, username, password, type }); // Add this line
-        console.log('Form submitted');
         validateForm();
-
-        // Get checkbox values
-    const standardChecked = document.getElementById("standardcheck").checked;
-    const adminChecked = document.getElementById("admincheck").checked;
-
-    // Set account type AND update the type state
-    if (adminChecked) {
-        setType("Group Admin"); // Update type state here!
-    } else {
-        setType("Standard"); // Update type state here!
-    }
-    
+      
+        // Setting the account type
+        const standardChecked = document.getElementById("standardcheck").checked;
+        const adminChecked = document.getElementById("admincheck").checked;
+      
+        setType(adminChecked ? "Group Admin" : "Standard");
+      
         if (isFormValid) {
-            try {
-                console.log('Sending registration request');
-                const response = await fetch('/api/register', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        firstname,
-                        lastname,
-                        email,
-                        username,
-                        password,
-                        type,
-                    }),
-                })
-                    .then((response) => {
-                        if (!response.ok) {
-                            return response.json().then((errorData) => {
-                                throw new Error(errorData.message || 'Something went wrong');
-                            });
-                        }
-                        // return response.json();
-                    })
-                    .then((data) => {
-                        console.log('API response:', data);
-                        // ... handle success ...
-                    })
-                    .catch((error) => {
-                        console.error('Fetch error:', error);
-                        // ... handle error ...
-                    });
-    
-                const result = await response.json();
-                console.log('API response:', result);
-    
-                if (response.ok) {
-                    console.log('Registration successful!');
-                    // Navigate to a success page or login page
-                    router.push('/dashboard'); // or a success page
-                } else {
-                    setErrors({ form: result.message });
-                    console.log('Registration failed:', result.message);
-                }
-            } catch (error) {
-                console.error('Error during registration:', error);
-                setErrors({ form: 'Internal server error' });
+          try {
+            const response = await fetch('/api/register', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                firstname,
+                lastname,
+                email,
+                username,
+                password,
+                type,
+              }),
+            });
+      
+            if (!response.ok) {
+              const errorData = await response.json();
+              setErrors({ form: errorData.message || 'Something went wrong, please try again' });
+              return;
             }
-        } else {
-            console.log('Form has errors. Please correct them.');
+      
+            const result = await response.json();
+            console.log('API response:', result);
+      
+            if (response.ok) {
+              router.push('/dashboard');
+            } else {
+              setErrors({ form: result.message || 'Registration failed.' });
+            }
+          } catch (error) {
+            console.error('Error during the registration:', error);
+            setErrors({ form: 'Internal server error' });
+          }
         }
-    };
+      };
 
     return (
         <html>
@@ -197,12 +170,12 @@ const Signup = () => {
                             <div className='check' style={{display: 'inline-flex'}}>
                                 <div id='standard'>
                                     <p>Standard</p>
-                                    <input id='standardcheck' type="checkbox" aria-label="Checkbox for following text input" />
+                                    <input id='standardcheck' type="checkbox" />
                                 </div>
                                 <div className='brk'></div>
                                 <div id='admin'>
                                     <p>Group Admin</p>
-                                    <input id='admincheck' type="checkbox" aria-label="Checkbox for following text input" />
+                                    <input id='admincheck' type="checkbox"/>
                                 </div>
                             </div>
                             {errors.password && <p style={{color: 'red'}}>{errors.password}</p>}

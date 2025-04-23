@@ -1,17 +1,16 @@
 "use client"
 import Cookies from 'js-cookie';
 import Header from "../../../components/header";
-import Link from "next/link";
 import 'bootstrap/dist/css/bootstrap.css'
 import '../../../styles/editgroup.css'
 import '../../../globals.css';
 import React, { useState, useEffect } from 'react';
-import { useRouter, useParams } from 'next/navigation'; // Import useParams
+import { useRouter, useParams } from 'next/navigation'; 
 
 export default function EditGroup() {
   const accountTypeString = Cookies.get('accountType');
-  console.log('1. Account Type from cookie (string):', accountTypeString);
   
+  //Only group admins have access to this page
   if (!accountTypeString) {
       return (
       <html>
@@ -48,24 +47,22 @@ export default function EditGroup() {
             )
   } else {
   const router = useRouter();
-      const { groupId } = useParams(); // Get the listId from the URL
+      const { groupId } = useParams(); 
       const [name, setName] = useState('');
       const [userid, setID] = useState('');
       const [errors, setErrors] = useState({});
       const [isFormValid, setIsFormValid] = useState(false);
   
       useEffect(() => {
-          console.log('Validating form');
           validateForm();
       }, [userid, name]);
   
-      // Validate form
       const validateForm = () => {
           let errors = {};
           console.log('Validating creation');
   
           if (!userid) {
-              errors.name = 'Task Name is required.';
+              errors.name = 'UserID is required.';
           }
           if (!name) {
             errors.name = 'Task Name is required.';
@@ -73,15 +70,12 @@ export default function EditGroup() {
   
           setErrors(errors);
           setIsFormValid(Object.keys(errors).length === 0);
-          console.log('Validation complete', errors, isFormValid);
       };
   
       const handleSubmit = async (e) => {
-        console.log("handleSubmit for adding member is running!");
         e.preventDefault();
       
         if (!groupId) {
-          console.error("Group ID is missing!");
           setErrors({ form: 'Could not identify the group.' });
           return;
         }
@@ -91,21 +85,17 @@ export default function EditGroup() {
           return;
         }
       
-        console.log("About to send request to add member with userId:", userid, "and groupId:", groupId);
-      
         try {
           const response = await fetch('/api/editAgroup', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ action: 'addMember', userid: userid, groupId: groupId }), // Added 'action: 'addMember'' here
+            body: JSON.stringify({ action: 'addMember', userid: userid, groupId: groupId }), 
           });
       
           const result = await response.json();
       
           if (response.ok) {
-            console.log('Member added successfully!', result);
             setID('');
-            // You might want to refresh the list of members here
           } else {
             setErrors({ form: result.message || 'Failed to add member.' });
             console.error('Failed to add member:', result.message);
@@ -117,11 +107,9 @@ export default function EditGroup() {
       };
 
       const handleSubmitAddList = async (e) => {
-        console.log("handleSubmit for adding list is running!");
         e.preventDefault();
       
         if (!groupId) {
-          console.error("Group ID is missing!");
           setErrors({ form: 'Could not identify the group.' });
           return;
         }
@@ -135,21 +123,17 @@ export default function EditGroup() {
           const response = await fetch('/api/editAgroup', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ action: 'addList', name: name, status: 'incomplete', groupId: groupId }), // Added 'action: 'addList'' here
+            body: JSON.stringify({ action: 'addList', name: name, status: 'incomplete', groupId: groupId }), 
           });
       
           const result = await response.json();
       
           if (response.ok) {
-            console.log('List created successfully!', result);
-            setName(''); // Clear the input field
-            // Optionally, refresh the list of groups on the page
+            setName('');
           } else {
             setErrors({ form: result.message || 'Failed to create list' });
-            console.error('Failed to create list:', result.message);
           }
         } catch (error) {
-          console.error('Error creating list:', error);
           setErrors({ form: 'Internal server error' });
         }
       };
@@ -164,7 +148,7 @@ export default function EditGroup() {
             <br/>
             <div className="row">
                 <div className="card">
-                    <form onSubmit={handleSubmit}> {/* Add onSubmit handler */}
+                    <form onSubmit={handleSubmit}>
                         <h2>Add Members</h2>
                         <div class="mb-3">
                             <label class="form-label"><b>Name</b></label>
@@ -175,10 +159,10 @@ export default function EditGroup() {
                                         value={userid}
                                         onChange={(e) => setID(e.target.value)}
                                     /> 
-                                    {errors.name && <p style={{ color: 'red' }}>{errors.name}</p>}
+                                    {errors.form && <p style={{ color: 'red' }}>{errors.form}</p>}
                                     
                         </div>
-                        <button type="submit" class="btn-primary">Create</button> 
+                        <button type="submit" class="btn-primary">Add</button> 
                     </form>
                 </div>
 

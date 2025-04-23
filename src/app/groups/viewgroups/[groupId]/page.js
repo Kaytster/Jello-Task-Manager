@@ -9,38 +9,31 @@ import React, { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 
 async function fetchGroupInfo(groupId) {
-  console.log("Fetching group info for ID:", groupId);
   try {
     const response = await fetch(`/api/viewAgroup/${groupId}`);
-    console.log("Fetch response:", response);
     if (!response.ok) {
-      console.error("Fetch error:", response.status);
-      throw new Error(`HTTP error! status: ${response.status}`);
+      console.error("Fetch error", response.status);
     }
     const data = await response.json();
-    console.log("Fetched data:", data);
     return data;
   } catch (error) {
-    console.error("Failed to fetch group info:", error);
+    console.error("Failed to fetch group info", error);
     return null;
   }
 }
 
+//getting the data of a specific group with the ID from the URL.
 export default function ViewGroup() {
   const { groupId } = useParams();
   const [groupData, setGroupData] = useState(null);
 
   useEffect(() => {
-    console.log("useEffect running. groupId:", groupId);
     async function loadGroupData() {
       if (groupId) {
         const data = await fetchGroupInfo(groupId);
-        console.log("Data after fetch:", data);
         setGroupData(data);
-        console.log("groupData state updated:", groupData);
       }
     }
-
     loadGroupData();
   }, [groupId]);
 
@@ -48,51 +41,114 @@ export default function ViewGroup() {
     return <div>Loading group information...</div>;
   }
 
-  return (
-    <div>
-      <Header />
-      <main>
-        <br />
-        <br />
-        <div className="row">
-          {Array.isArray(groupData) ? (
-            groupData.map((item) => (
-              <div className="card" key={item.GrpList_ID || item.GrpTask_ID || Math.random()}>
+  const handleCheckboxChange = async (event, taskId, isGroupTask) => {
+    const isChecked = event.target.checked;
+    const taskType = isGroupTask ? 'group' : 'individual';
+  
+    try {
+      const response = await fetch('/api/listANDtaskStatus', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ taskId: taskId, isCompleted: isChecked, taskType: taskType }),
+      });
+  
+      if (response.ok) {
+        setGroupData(prevData => ({
+          ...prevData,
+          lists: prevData.lists.map(list => ({
+            ...list,
+            tasks: list.tasks.map(task => {
+              if (isGroupTask && task.GrpTask_ID === taskId) {
+                return { ...task, GrpTask_Status: isChecked ? 'Complete' : 'Incomplete' };
+              } else if (!isGroupTask && task.IndTask_ID === taskId) {
+                return { ...task, IndTask_Status: isChecked ? 'Complete' : 'Incomplete' };
+              }
+              return task;
+            })
+          }))
+        }));
+      } else {
+        console.error('Failed to update the task status', response.status);
+      }
+    } catch (error) {
+      console.error('Error updating the task', error);
+    }
+  };
+
+  const accountTypeString = Cookies.get('accountType');
+
+  //if the user is a group admin, they can check tasks as complete or incomplete, else they will just see the tasks.
+  if (accountTypeString == 'Group Admin') {
+    return (
+      <div>
+        <Header />
+        <main>
+          <br />
+          <br />
+          <div className="row">
+            {groupData.lists && groupData.lists.map((list) => (
+              <div className="card" key={list.GrpList_ID} style={{ marginRight: '25px', marginBottom: '20px' }}>
+                <div className="card-title">
+                  <h1>{list.GrpList_Name}</h1>
+                  {list.GrpList_Status && <h3>{list.GrpList_Status}</h3>}
+                </div>
                 <div className="card-body">
-                  {item.GrpList_Name && (
-                    <div className="card-title">
-                      <h3>{item.GrpList_Name}</h3>
+                  {list.tasks && list.tasks.map((task) => (
+                    <div key={task.GrpTask_ID} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginBottom: '10px'}}>
+                      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
+                        <input
+                          type="checkbox"
+                          style={{ marginRight: '10px' }}
+                          checked={task.GrpTask_Status === 'Complete'}
+                          onChange={(event) => handleCheckboxChange(event, task.GrpTask_ID, true)}
+                        />
+                        <p style={{ color: '#FE107E', fontSize: '20px' }}>{task.GrpTask_Name}</p>
+                      </div>
+                      {task.GrpTask_Content && <p style={{ marginLeft: '30px' }}>{task.GrpTask_Content}</p>}
                     </div>
-                  )}
-                  {item.GrpTask_Name && (
-                    <div className="card-">
-                      <p>{item.GrpTask_Name}</p>
-                    </div>
-                  )}
-                  {item.GrpTask_Content && (
-                    <div className="card-text">
-                      <p>{item.GrpTask_Content}</p>
-                    </div>
-                  )}
+                  ))}
+                  <Link href={`/createtask/${list.GrpList_ID}`}>
+                    <button>Add Task</button>
+                  </Link>
                 </div>
               </div>
-            ))
-          ) : (
-            <div className="card">
-              <div className="card-body">
-                {groupData && groupData.Group_Name && (
-                  <div className="card-title">
-                    <h3>{groupData.Group_Name}</h3>
-                  </div>
-                )}
-                <div className="card-value">
-                  tasklists
+            ))}
+          </div>
+        </main>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <Header />
+        <main>
+          <br />
+          <br />
+          <div className="row">
+            {groupData.lists && groupData.lists.map((list) => (
+              <div className="card" key={list.GrpList_ID} style={{ marginRight: '25px', marginBottom: '20px' }}>
+                <div className="card-title">
+                  <h1>{list.GrpList_Name}</h1>
+                  {list.GrpList_Status && <h3>{list.GrpList_Status}</h3>}
+                </div>
+                <div className="card-body">
+                  {list.tasks && list.tasks.map((task) => (
+                    <div key={task.GrpTask_ID} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginBottom: '10px'}}>
+                      <p style={{ color: '#FE107E', fontSize: '20px' }}>{task.GrpTask_Name}</p>
+                      {task.GrpTask_Content && <p style={{ marginLeft: '0' }}>{task.GrpTask_Content}</p>}
+                    </div>
+                  ))}
+                  <Link href={`/createtask/${list.GrpList_ID}`}>
+                    <button>Add Task</button>
+                  </Link>
                 </div>
               </div>
-            </div>
-          )}
-        </div>
-      </main>
-    </div>
-  );
+            ))}
+          </div>
+        </main>
+      </div>
+    );
+  }
 }

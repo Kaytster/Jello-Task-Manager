@@ -1,15 +1,15 @@
 import { handleLogin } from '../lib/db/showData';
 import { redirect } from 'next/navigation';
-import { cookies } from 'next/headers'; // Import cookies
+import { cookies } from 'next/headers'; 
 
 export async function loginFunction(username, password) {
     const userId = await handleLogin(username, password);
 
     if (userId) {
-        cookies().set('userId', userId); // Set the userId cookie
-        redirect('/dashboard'); // Redirect without userId in the URL
+        cookies().set('userId', userId); 
+        redirect('/dashboard'); 
     } else {
         console.log("Login failed.");
-        // Optionally, display an error message to the user
+        
     }
 }

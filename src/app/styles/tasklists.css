@@ -1,11 +1,14 @@
 :root {
-    --colour1: #FE107E;
-    --colour2: rgb(247, 110, 245);
-    --shadow: 0 10px 30px rgba(0, 103, 177, 0.15);
-    --radius: 16px;
-    --transition: all 0.3s ease;
-    --gradient: linear-gradient(135deg, var(--colour1), var(--colour2));
-  }
+  --colour1: #FE107E;
+  --colour2: rgb(247, 110, 245);
+  --colour3: #FAB4D5;
+  --colour4: #F7489A;
+
+  --shadow: 0 10px 30px rgba(0, 103, 177, 0.15);
+  --radius: 16px;
+  --transition: all 0.3s ease;
+  --gradient: linear-gradient(135deg, var(--colour1), var(--colour2));
+}
 
   .row {
     display: flex;
@@ -19,7 +22,7 @@
   .card {
       width: 30%;
       display: flexbox;
-      border-color: #FE107E;
+      border-color: var(--colour1);
       border-width: 2px;
       border-style: solid;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
@@ -27,7 +30,7 @@
   
     .card > .card-title > h1 {
       font-size: 40px;
-      color: #FAB4D5;
+      color: var(--colour3);
       text-align: center;
       font-family: Arial, Helvetica, sans-serif;
     }
@@ -47,16 +50,7 @@ button {
     background: var(--gradient);
     align-self: flex-start;
 }
-    /* align-self: flex-start;
-    margin-top: 50px;
-    width: 200px;
-    height: 50px;;
-    border-width: 5px;
-    border-radius: 10px;
-    border-color: #FE107E;
-    border-style: solid;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 32px;
-    text-align: center;
-    color: #FE107E;
-    background-color: #FAB4D5; */
+
+input[type=checkbox]{
+  accent-color: #610731;
+}

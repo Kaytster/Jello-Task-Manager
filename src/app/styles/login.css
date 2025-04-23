@@ -1,18 +1,18 @@
 :root {
     --colour1: #FE107E;
     --colour2: rgb(247, 110, 245);
+    --colour3: #FAB4D5;
+    --colour4: #F7489A;
+
     --shadow: 0 10px 30px rgba(0, 103, 177, 0.15);
     --radius: 16px;
     --transition: all 0.3s ease;
     --gradient: linear-gradient(135deg, var(--colour1), var(--colour2));
   }
 
-body{
-    background-color: #F7E8EF;
-  }
 h1 {
     font-size: 64px;
-    color: #FE107E;
+    color: var(--colour1);
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -31,7 +31,7 @@ form {
 
     border-style: solid;
     border-width: 2px;
-    border-color: #FE107E;
+    border-color: var(--colour1);
     height: 400px;
     width:600px;
     background-color: whitesmoke;
@@ -40,7 +40,7 @@ form {
 
 h2 {
     font-size: 40px;
-    color: #FAB4D5;
+    color: var(--colour3);
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
 }

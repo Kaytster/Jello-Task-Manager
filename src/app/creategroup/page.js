@@ -9,7 +9,6 @@ import { useRouter } from 'next/navigation';
 
 export default function CreateGroup() {
     const accountTypeString = Cookies.get('accountType');
-    console.log('1. Account Type from cookie (string):', accountTypeString);
     
     if (!accountTypeString) {
         return (
@@ -52,14 +51,11 @@ export default function CreateGroup() {
     const [isFormValid, setIsFormValid] = useState(false);
   
       useEffect(() => {
-          console.log('Validating form');
           validateForm();
       }, [name]);
   
-      // Validate form
       const validateForm = () => {
           let errors = {};
-          console.log('Validating creation');
   
           if (!name) {
               errors.name = 'Group Name is required.'; 
@@ -67,17 +63,15 @@ export default function CreateGroup() {
   
           setErrors(errors);
           setIsFormValid(Object.keys(errors).length === 0);
-          console.log('Validation complete', errors, isFormValid);
       };
   
       const handleSubmit = async (e) => {
-        console.log("handleSubmit is running!");
         e.preventDefault();
     
         const userIdFromCookie = Cookies.get('userId');
     
         if (!userIdFromCookie) {
-            console.error("User ID not found in cookie!");
+            console.error("No User ID");
             setErrors({ form: 'Could not identify the user. Please log in again.' });
             return; 
         }
@@ -98,10 +92,10 @@ export default function CreateGroup() {
                     router.push('/tasklists');
                 } else {
                     setErrors({ form: result.message || 'Failed to create list' });
-                    console.error('List creation failed:', result.message);
+                    console.error('List creation failed', result.message);
                 }
             } catch (error) {
-                console.error('Error creating list:', error);
+                console.error('Error creating list', error);
                 setErrors({ form: 'Internal server error' });
             }
         } else {
