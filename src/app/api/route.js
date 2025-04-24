@@ -13,9 +13,15 @@ export async function POST(request) {
       const { userId, accountType } = loginResult;
       const cookieStore = cookies();
       cookieStore.set('accountType', accountType, {
-        //The cookie lasts for 7 days and is available on the whole site (so it can be accessed on any page)
+         //The cookie lasts for 7 days and is available on the whole site (so it can be accessed on any page)
         maxAge: 60 * 60 * 24 * 7, 
         path: '/', 
+      });
+      return new Response(JSON.stringify({ message: 'Login successful', userId: userId, accountType: accountType }), {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
     } else {
       return new Response(JSON.stringify({ message: 'Invalid username or password' }), {

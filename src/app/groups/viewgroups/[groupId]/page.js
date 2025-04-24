@@ -51,7 +51,7 @@ export default function ViewGroup() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ taskId: taskId, isCompleted: isChecked, taskType: taskType }),
+        body: JSON.stringify({ GrplistId: GrplistId, taskId: taskId, isCompleted: isChecked, taskType: taskType }),
       });
   
       if (response.ok) {

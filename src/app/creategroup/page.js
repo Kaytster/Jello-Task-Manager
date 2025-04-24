@@ -70,7 +70,6 @@ export default function CreateGroup() {
     
         if (isFormValid) {
             try {
-                console.log('Sending list creation request with userId:', userIdFromCookie);
                 const response = await fetch('/api/createAgroup', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -80,18 +79,16 @@ export default function CreateGroup() {
                 const result = await response.json();
     
                 if (response.ok) {
-                    console.log('List creation successful!', result);
-                    router.push('/tasklists');
+                    router.push('/groups');
                 } else {
-                    setErrors({ form: result.message || 'Failed to create list' });
-                    console.error('List creation failed', result.message);
+                    setErrors({ form: result.message || 'Failed to create group' });
+                    console.error('Group creation failed', result.message);
                 }
             } catch (error) {
-                console.error('Error creating list', error);
+                console.error('Error creating group', error);
                 setErrors({ form: 'Internal server error' });
             }
         } else {
-            console.log('Form has errors. Please correct them.');
         }
     };
 
@@ -109,7 +106,7 @@ export default function CreateGroup() {
                         <input
                                     type="text" 
                                     className="form-control"
-                                    id="InputListName"
+                                    id="InputGroupName"
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
                                 />

@@ -51,7 +51,6 @@ export default function EditGroup() {
   
       const validateForm = () => {
           let errors = {};
-          console.log('Validating creation');
   
           if (!userid) {
               errors.name = 'UserID is required.';
@@ -89,11 +88,11 @@ export default function EditGroup() {
           if (response.ok) {
             setID('');
           } else {
-            setErrors({ form: result.message || 'Failed to add member.' });
-            console.error('Failed to add member:', result.message);
+            setErrors({ form: result.message || 'Failed to add member' });
+            console.error('Failed to add member', result.message);
           }
         } catch (error) {
-          console.error('Error adding member:', error);
+          console.error('Error adding member', error);
           setErrors({ form: 'Internal server error' });
         }
       };
@@ -102,12 +101,12 @@ export default function EditGroup() {
         e.preventDefault();
       
         if (!groupId) {
-          setErrors({ form: 'Could not identify the group.' });
+          setErrors({ form: 'Could not identify the group' });
           return;
         }
       
         if (!name) {
-          setErrors({ name: 'List name is required.' });
+          setErrors({ name: 'List name is required' });
           return;
         }
       
