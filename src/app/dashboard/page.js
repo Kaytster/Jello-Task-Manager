@@ -106,6 +106,7 @@ async function getUserData(userId) {
 }
 
 export default async function Home() {
+  
   // const individual_list = await recentList();
   // const individual_task = await recentListTasks();
   const cookieStore = cookies();
@@ -138,8 +139,7 @@ export default async function Home() {
 // const { individual_list, individual_task } = await getUserData(numericUserId);
   
   return (
-      <html>
-        <body>
+    <>
           <Header />
           <main>
           <br/>
@@ -233,12 +233,16 @@ export default async function Home() {
                     <tbody>
                         {listsAndTasks.map((item) => (
                             <div key={item.GrpTask_ID}>
-                            <tr id="row">
-                              <td id="name" style={{color: '#FE107E', fontSize: '20px' }}>{item.GrpList_Name}</td>
-                            </tr>
-                            <tr id="row">
-                              <td>{item.GrpTask_Name}: {item.GrpTask_Content}</td>
-                            </tr>
+                              <React.Fragment key={item.GrpList_ID}>
+                                <tr id="row">
+                                  <td id="name" style={{color: '#FE107E', fontSize: '20px' }}>{item.GrpList_Name}</td>
+                                </tr>
+                                {item.tasks && item.tasks.map((task) => (
+                                <tr id="row">
+                                  <td>{task.GrpTask_Name}: {task.GrpTask_Content}</td>
+                                </tr>
+                                ))}
+                              </React.Fragment>
                             </div>
                          ))}
                          </tbody>
@@ -247,8 +251,7 @@ export default async function Home() {
             </section>
           </div>
           </main>
-        </body>
-      </html>
+          </>
     );
   };
 

@@ -12,37 +12,29 @@ export default function CreateGroup() {
     
     if (!accountTypeString) {
         return (
-        <html>
-            <head>
-            </head>
-            <body>
+          <>
               <Header />
               <main>
                 <br />
                 <br />
-                <div class='card'>
+                <div className='card'>
                     <h1>Please log in!</h1>
                 </div>
               </main>
-            </body>
-          </html>
+              </>
           )
     } else if (accountTypeString !== 'Group Admin') {
         return (
-            <html>
-                <head>
-                </head>
-                <body>
+          <>
                   <Header />
                   <main>
                     <br />
                     <br />
-                    <div class='card'>
+                    <div className='card'>
                         <h1>Only Group Admin Users have access to this page.</h1>
                     </div>
                   </main>
-                </body>
-              </html>
+              </>
               )
     } else {
     const router = useRouter();
@@ -104,10 +96,7 @@ export default function CreateGroup() {
     };
 
     return (
-      <html>
-        <head>
-        </head>
-        <body>
+      <>
           <Header />
           <main>
             <br />
@@ -115,8 +104,8 @@ export default function CreateGroup() {
             <div id='form'>
                 <form onSubmit={handleSubmit}>
                     <h2>Create a Group</h2>
-                    <div class="mb-3">
-                        <label class="form-label"><b>Name</b></label>
+                    <div className="mb-3">
+                        <label className="form-label"><b>Name</b></label>
                         <input
                                     type="text" 
                                     className="form-control"
@@ -126,12 +115,11 @@ export default function CreateGroup() {
                                 />
                                 {errors.name && <p style={{ color: 'red' }}>{errors.name}</p>}
                     </div>
-                    <button type="submit" class="btn-primary">Create</button> 
+                    <button type="submit" className="btn-primary">Create</button> 
                 </form>
             </div>
           </main>
-        </body>
-      </html>
+          </>
     );
   }
 };

@@ -71,7 +71,7 @@ const getGroupMembers = async (groupId) => {
 //Getting the Lists and Tasks of the group
 const getGroupListsAndTasks = async (groupId) => {
   try {
-    const query = 'SELECT gl.GrpList_ID, gl.GrpList_Name, gl.GrpList_Status, JSON_ARRAYAGG( JSON_OBJECT( GrpTask_ID, gt.GrpTask_ID, GrpTask_Name, gt.GrpTask_Name, GrpTask_Content, gt.GrpTask_Content, GrpTask_Status, gt.GrpTask_Status ) ) AS tasks FROM group_list gl LEFT JOIN group_link glk ON gl.GrpList_ID = glk.GrpList_ID LEFT JOIN group_task gt ON glk.GrpTask_ID = gt.GrpTask_ID WHERE gl.Group_ID = ? GROUP BY gl.GrpList_ID, gl.GrpList_Name, gl.GrpList_Status ORDER BY gl.GrpList_ID';
+    const query = `SELECT gl.GrpList_ID, gl.GrpList_Name, gl.GrpList_Status, JSON_ARRAYAGG( JSON_OBJECT( 'GrpTask_ID', gt.GrpTask_ID, 'GrpTask_Name', gt.GrpTask_Name, 'GrpTask_Content', gt.GrpTask_Content, 'GrpTask_Status', gt.GrpTask_Status ) ) AS tasks FROM group_list gl LEFT JOIN group_link glk ON gl.GrpList_ID = glk.GrpList_ID LEFT JOIN group_task gt ON glk.GrpTask_ID = gt.GrpTask_ID WHERE gl.Group_ID = ? GROUP BY gl.GrpList_ID, gl.GrpList_Name, gl.GrpList_Status ORDER BY gl.GrpList_ID`;
     
     const [rows] = await pool.execute(query, [groupId]);
     return rows;

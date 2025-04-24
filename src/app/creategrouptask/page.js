@@ -5,10 +5,7 @@ import '../styles/creategrouptask.css'
 
 export default function CreateGroupTask() {
     return (
-      <html>
-        <head>
-        </head>
-        <body>
+      <>
           <Header />
           <main>
             <br />
@@ -16,19 +13,18 @@ export default function CreateGroupTask() {
             <div id='form'>
                 <form>
                     <h2>Create a Task </h2>
-                    <div class="mb-3">
-                        <label class="form-label"><b>Name</b></label>
-                        <input type="taskname" class="form-control" id="InputTaskName"/>
+                    <div className="mb-3">
+                        <label className="form-label"><b>Name</b></label>
+                        <input type="taskname" className="form-control" id="InputTaskName"/>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label"><b>Content</b></label>
-                        <input type="taskcontent" class="form-control" id="InputTaskContent"/>
+                    <div className="mb-3">
+                        <label className="form-label"><b>Content</b></label>
+                        <input type="taskcontent" className="form-control" id="InputTaskContent"/>
                     </div>
-                    <button type="submit" class="btn-primary">Create</button> 
+                    <button type="submit" className="btn-primary">Create</button> 
                 </form>
             </div>
           </main>
-        </body>
-      </html>
+          </>
     );
   }

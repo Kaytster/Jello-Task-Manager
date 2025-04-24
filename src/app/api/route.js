@@ -1,11 +1,10 @@
-// the api to check against the database
 import { handleLogin } from '../lib/db';
-import { cookies } from 'next/headers'; // If you are using Next.js
+import { cookies } from 'next/headers';
+
+//API tutorial: https://nextjs.org/blog/building-apis-with-nextjs
 
 export async function POST(request) {
-  console.log('API handler invoked');
   const { username, password } = await request.json();
-  console.log('Received request:', { username, password });
 
   try {
     const loginResult = await handleLogin(username, password);
@@ -14,16 +13,9 @@ export async function POST(request) {
       const { userId, accountType } = loginResult;
       const cookieStore = cookies();
       cookieStore.set('accountType', accountType, {
-        maxAge: 60 * 60 * 24 * 7, // Cookie lasts for 7 days (in seconds)
-        path: '/', // Cookie is valid for the entire domain
-        // secure: process.env.NODE_ENV === 'production', // Only send over HTTPS in production
-      });
-
-      return new Response(JSON.stringify({ message: 'Login successful', userId: userId, accountType: accountType }), {
-        status: 200,
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        //The cookie lasts for 7 days and is available on the whole site (so it can be accessed on any page)
+        maxAge: 60 * 60 * 24 * 7, 
+        path: '/', 
       });
     } else {
       return new Response(JSON.stringify({ message: 'Invalid username or password' }), {
@@ -34,7 +26,7 @@ export async function POST(request) {
       });
     }
   } catch (error) {
-    console.error('Error during login:', error);
+    console.error('Error during login', error);
     return new Response(JSON.stringify({ message: 'Internal server error' }), {
       status: 500,
       headers: {

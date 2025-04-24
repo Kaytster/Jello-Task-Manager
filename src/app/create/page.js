@@ -6,10 +6,7 @@ import '../globals.css';
 
 export default function Create() {
     return (
-      <html>
-        <head>
-        </head>
-        <body>
+      <>
           <Header />
           <main>
             <br/>
@@ -29,7 +26,6 @@ export default function Create() {
               </Link>
             </div>
           </main>
-        </body>
-      </html>
+      </>
     );
   }

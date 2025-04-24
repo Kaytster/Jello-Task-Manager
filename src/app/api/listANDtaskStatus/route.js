@@ -1,4 +1,3 @@
-// src/app/api/tasks.js
 import { execute } from '../../lib/db';
 import { showLists, recentListTasks } from '../../lib/db/showData';
 import { cookies } from 'next/headers';

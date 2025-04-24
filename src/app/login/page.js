@@ -77,6 +77,7 @@ export default function Login() {
     };
 
     return (
+        <>
         <main>
             <h1>Jello</h1>
             <div id='form'>
@@ -109,5 +110,6 @@ export default function Login() {
                 </form>
             </div>
         </main>
+        </>
     );
 };

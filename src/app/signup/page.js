@@ -100,8 +100,7 @@ const Signup = () => {
       };
 
     return (
-        <html>
-            <body>
+        <>
                 <main>
                     <h1>Jello</h1>
                     <div id='form'>
@@ -190,8 +189,7 @@ const Signup = () => {
                     </form>
                     </div>
                 </main>
-            </body>
-        </html>
+                </>
     );
 };
 export default Signup;

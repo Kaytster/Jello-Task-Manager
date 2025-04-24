@@ -29,10 +29,8 @@ export async function POST(req) {
         return NextResponse.json({ message: 'List name and Group ID are needed', status: 400 });
       }
       try {
-        const insertGrpListQuery = `
-          INSERT INTO group_list (GrpList_Name, GrpList_Status, Group_ID)
-          VALUES (?, ?, ?)
-        `;
+        const insertGrpListQuery = 'INSERT INTO group_list (GrpList_Name, GrpList_Status, Group_ID) VALUES (?, ?, ?)';
+
         const [result] = await execute(insertGrpListQuery, [grpname, grpstatus, groupId]);
 
         if (result && result.insertId) {
@@ -41,8 +39,7 @@ export async function POST(req) {
           return NextResponse.json({ message: 'Failed to create a list in the database.', status: 500 });
         }
       } catch (error) {
-        console.error('Database error creating list:', error);
-        return NextResponse.json({ message: 'Something went wrong', status: 500 });
+        console.error('Database error creating list', error);
       }
     } else {
       return NextResponse.json({ message: 'Unknown action', status: 400 });

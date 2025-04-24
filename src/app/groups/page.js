@@ -32,7 +32,7 @@ export default async function GroupList() {
     const groupsWithMembers = await getUserGroups(userId);
   
     return (
-      <div>
+      <>
         <Header />
         <main>
           <br />
@@ -69,6 +69,6 @@ export default async function GroupList() {
             ))}
           </div>
         </main>
-      </div>
+        </>
     );
   }

@@ -69,11 +69,7 @@ const CreateList = () => {
   };
 
     return (
-        <html>
-            <head>
-                
-            </head>
-            <body>
+        <>
                 <Header />
                 <main>
                     <br />
@@ -96,8 +92,7 @@ const CreateList = () => {
                         </form>
                     </div>
                 </main>
-            </body>
-        </html>
+                </>
     );
 }
 

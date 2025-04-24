@@ -207,7 +207,7 @@ const EditList = () => {
     
 
     return (
-        <div>
+        <>
             <head>
                 <title>Create Task</title>
             </head>
@@ -316,7 +316,7 @@ const EditList = () => {
                             </div>
 
                     </div>
-     </div>
+                    </>
 
 
     );

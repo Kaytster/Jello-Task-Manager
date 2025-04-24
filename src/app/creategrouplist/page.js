@@ -5,10 +5,7 @@ import '../styles/creategrouplist.css'
 
 export default function CreateGroupList() {
     return (
-      <html>
-        <head>
-        </head>
-        <body>
+      <>
           <Header />
           <main>
             <br />
@@ -16,15 +13,14 @@ export default function CreateGroupList() {
             <div id='form'>
                 <form>
                     <h2>Create a Task List</h2>
-                    <div class="mb-3">
-                        <label class="form-label"><b>Name</b></label>
-                        <input type="listname" class="form-control" id="InputListName"/>
+                    <div className="mb-3">
+                        <label className="form-label"><b>Name</b></label>
+                        <input type="listname" className="form-control" id="InputListName"/>
                     </div>
-                    <button type="submit" class="btn-primary">Create</button> 
+                    <button type="submit" className="btn-primary">Create</button> 
                 </form>
             </div>
           </main>
-        </body>
-      </html>
+          </>
     );
   }

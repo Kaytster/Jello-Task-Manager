@@ -31,10 +31,7 @@ const cookieStore = cookies();
     const FullDetails = await getUserDeets(userId);
 
   return (
-    <html>
-      <head>
-      </head>
-      <body>
+    <>
         <Header />
         <main>
           <br/>
@@ -58,7 +55,6 @@ const cookieStore = cookies();
 ))}
             </div>
         </main>
-      </body>
-    </html>
+      </>
   );
 }

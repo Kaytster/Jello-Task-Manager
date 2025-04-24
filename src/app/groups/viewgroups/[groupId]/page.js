@@ -82,7 +82,7 @@ export default function ViewGroup() {
   //if the user is a group admin, they can check tasks as complete or incomplete, else they will just see the tasks.
   if (accountTypeString == 'Group Admin') {
     return (
-      <div>
+      <>
         <Header />
         <main>
           <br />
@@ -117,11 +117,11 @@ export default function ViewGroup() {
             ))}
           </div>
         </main>
-      </div>
+        </>
     );
   } else {
     return (
-      <div>
+      <>
         <Header />
         <main>
           <br />
@@ -148,7 +148,7 @@ export default function ViewGroup() {
             ))}
           </div>
         </main>
-      </div>
+        </>
     );
   }
 }

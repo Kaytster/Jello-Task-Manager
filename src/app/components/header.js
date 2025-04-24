@@ -6,7 +6,7 @@ import '../globals.css';
 const Header = () => {
   const pathname = usePathname();
     return (
-        <ul class="nav">
+        <ul className="nav">
           <li className='logo'>
             <Link className="nav-link" href="/dashboard" aria-current={pathname === '/dashboard' ? 'page' : undefined}>
               <img src='\jellyfish.png' width={40} height={40} />

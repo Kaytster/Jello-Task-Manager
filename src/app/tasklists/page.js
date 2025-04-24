@@ -62,7 +62,7 @@ export default function TaskLists() {
   };
 
   return (
-    <div>
+    <>
       <Header />
       <main>
         <br />
@@ -106,6 +106,6 @@ export default function TaskLists() {
           ))}
         </div>
       </main>
-    </div>
+      </>
   );
 }

@@ -2,11 +2,10 @@ import { execute } from '../../lib/db';
 import { NextResponse } from 'next/server'; 
 
 export async function POST(req, res) { 
-    console.log('API createAlist POST handler invoked');
     const { name, userId } = await req.json();
 
     if (!name || !userId) {
-        return NextResponse.json({ message: 'List name and User ID are required' }, { status: 400 });
+        return NextResponse.json({ message: 'Group Name is required' }, { status: 400 });
     }
 
     try {
@@ -17,10 +16,10 @@ export async function POST(req, res) {
         if (result && result.insertId) {
             return NextResponse.json({ message: 'List created successfully', listId: result.insertId }, { status: 201 });
         } else {
-            return NextResponse.json({ message: 'Failed to create list in the database' }, { status: 500 });
+            return NextResponse.json({ message: 'Failed to create a group in the database' }, { status: 500 });
         }
     } catch (error) {
-        console.error('Database error creating list', error);
+        console.error('Database error creating a group', error);
         return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
     }
 }

@@ -151,7 +151,6 @@ const verifyAccountCreation = async (
         'INSERT INTO user (User_Fname, User_Lname, Account_ID) VALUES (?, ?, ?)';
         const [userResult] = await execute(insertUserQuery, [firstname, lastname, accountId]);
         const userId = userResult.insertId;
-        console.log('User ID:', userId);
       
 
       await execute('COMMIT');

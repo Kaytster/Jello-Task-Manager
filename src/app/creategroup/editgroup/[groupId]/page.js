@@ -13,37 +13,29 @@ export default function EditGroup() {
   //Only group admins have access to this page
   if (!accountTypeString) {
       return (
-      <html>
-          <head>
-          </head>
-          <body>
+        <>
             <Header />
             <main>
               <br />
               <br />
-              <div class='card'>
+              <div className='card'>
                   <h1>Please log in!</h1>
               </div>
             </main>
-          </body>
-        </html>
+          </>
         )
   } else if (accountTypeString !== 'Group Admin') {
       return (
-          <html>
-              <head>
-              </head>
-              <body>
+        <>
                 <Header />
                 <main>
                   <br />
                   <br />
-                  <div class='card'>
+                  <div className='card'>
                       <h1>Only Group Admin Users have access to this page.</h1>
                   </div>
                 </main>
-              </body>
-            </html>
+              </>
             )
   } else {
   const router = useRouter();
@@ -138,10 +130,7 @@ export default function EditGroup() {
         }
       };
     return (
-      <html>
-        <head>
-        </head>
-        <body>
+      <>
           <Header />
           <main>
             <br/>
@@ -150,8 +139,8 @@ export default function EditGroup() {
                 <div className="card">
                     <form onSubmit={handleSubmit}>
                         <h2>Add Members</h2>
-                        <div class="mb-3">
-                            <label class="form-label"><b>Name</b></label>
+                        <div className="mb-3">
+                            <label className="form-label"><b>Name</b></label>
                             <input
                                         type="text" 
                                         className="form-control"
@@ -162,15 +151,15 @@ export default function EditGroup() {
                                     {errors.form && <p style={{ color: 'red' }}>{errors.form}</p>}
                                     
                         </div>
-                        <button type="submit" class="btn-primary">Add</button> 
+                        <button type="submit" className="btn-primary">Add</button> 
                     </form>
                 </div>
 
                 <div className="card">
                     <form onSubmit={handleSubmitAddList}>
                         <h2>Add List</h2>
-                        <div class="mb-3">
-                            <label class="form-label"><b>Name</b></label>
+                        <div className="mb-3">
+                            <label className="form-label"><b>Name</b></label>
                             <label className="form-label"><b>Name</b></label>
                                 <input
                                     type="text" 
@@ -181,7 +170,7 @@ export default function EditGroup() {
                                 />
                                 {errors.name && <p style={{ color: 'red' }}>{errors.name}</p>}
                         </div>
-                        <button type="submit" class="btn-primary">Create</button> 
+                        <button type="submit" className="btn-primary">Create</button> 
                     </form>
                 </div>
                 
@@ -189,8 +178,7 @@ export default function EditGroup() {
                 
             </div>
           </main>
-        </body>
-      </html>
+          </>
     );
   }
 };
