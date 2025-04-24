@@ -1,13 +1,6 @@
 body{
   background-color: #F7E8EF;
 }
-/* Navigation Bar */
-/* #nav {
-  background-color: #FE107E;
-  display: inline-flex;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 15.3px;
-} */
 
 .nav {
   background-color: #FE107E;
@@ -29,30 +22,6 @@ body{
 
 .nav-link[aria-current="page"] {
   font-weight: bold;
-  background-color: #46052389; /* Change this to your desired color */
+  background-color: #46052389; 
   height: 100%;
 }
-
-
-/* .nav-item > .nav-link[aria-current] {
-  background-color: #48062472;
-} */
-
-
-
-
-/* #nav > #head1 {
-  padding-left: 10px;
-}
-#nav > #head6 {
-  padding-right: 10px;
-}
-#nav > #brk1 {
-  padding-right: 197px;
-}
-#nav > #brk2, #brk3, #brk5 {
-  padding-right: 100px;
-}
-#nav > #brk4 {
-  padding-right: 197px;
-} */

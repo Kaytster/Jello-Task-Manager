@@ -23,7 +23,7 @@ export default function TaskLists() {
             setListsWithTasks(data);
           })
           .catch((error) => {
-            console.error('Something went wrong.', error);
+            console.error('Something went wrong', error);
           });
       } else {
         console.error('User ID is incorrect');
@@ -31,9 +31,9 @@ export default function TaskLists() {
     }
   }, []);
 
-  const handleCheckboxChange = async (event, taskId, isGroupTask) => { // Added isGroupTask parameter
+  const handleCheckboxChange = async (event, taskId, isGroupTask) => { 
     const isChecked = event.target.checked;
-    const taskType = isGroupTask ? 'group' : 'individual'; // Will always be 'individual' here
+    const taskType = isGroupTask ? 'group' : 'individual'; 
 
     try {
       const response = await fetch('/api/listANDtaskStatus', {
@@ -86,7 +86,7 @@ export default function TaskLists() {
                                 style={{ marginRight: '10px' }}
                                 type="checkbox"
                                 checked={task.IndTask_Status === 1 || task.IndTask_Status === 'Complete'}
-                                onChange={(event) => handleCheckboxChange(event, task.IndTask_ID, false)} // Passing false
+                                onChange={(event) => handleCheckboxChange(event, task.IndTask_ID, false)}
                               />
                               <p style={{ color: '#FE107E', fontSize: '20px' }}>{task.IndTask_Name} </p>
                             </div>

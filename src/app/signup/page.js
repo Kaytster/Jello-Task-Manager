@@ -19,7 +19,6 @@ const Signup = () => {
     const [isFormValid, setIsFormValid] = useState(false);
 
     useEffect(() => {
-        console.log('Validating form'); 
         validateForm();
     }, [username, password]);
 
