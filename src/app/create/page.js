@@ -1,4 +1,5 @@
 import Header from "../components/header";
+import Footer from "../components/footer";
 import Link from "next/link";
 import 'bootstrap/dist/css/bootstrap.css'
 import '../styles/create.css'
@@ -26,6 +27,7 @@ export default function Create() {
               </Link>
             </div>
           </main>
+          <Footer />
       </>
     );
   }

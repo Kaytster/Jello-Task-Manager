@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from 'react';
 import Header from "../components/header.js";
+import Footer from "../components/footer";
 import 'bootstrap/dist/css/bootstrap.css';
 import '../globals.css';
 import '../styles/tasklists.css';
@@ -106,6 +107,7 @@ export default function TaskLists() {
           ))}
         </div>
       </main>
+      <Footer />
       </>
   );
 }

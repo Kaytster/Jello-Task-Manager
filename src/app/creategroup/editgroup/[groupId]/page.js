@@ -1,6 +1,7 @@
 "use client"
 import Cookies from 'js-cookie';
 import Header from "../../../components/header";
+import Footer from "../../../components/footer";
 import 'bootstrap/dist/css/bootstrap.css'
 import '../../../styles/editgroup.css'
 import '../../../globals.css';
@@ -22,6 +23,7 @@ export default function EditGroup() {
                   <h1>Please log in!</h1>
               </div>
             </main>
+            <Footer />
           </>
         )
   } else if (accountTypeString !== 'Group Admin') {
@@ -35,6 +37,7 @@ export default function EditGroup() {
                       <h1>Only Group Admin Users have access to this page.</h1>
                   </div>
                 </main>
+                <Footer />
               </>
             )
   } else {
@@ -52,12 +55,7 @@ export default function EditGroup() {
       const validateForm = () => {
           let errors = {};
   
-          if (!userid) {
-              errors.name = 'UserID is required.';
-          }
-          if (!name) {
-            errors.name = 'Task Name is required.';
-        }
+          
   
           setErrors(errors);
           setIsFormValid(Object.keys(errors).length === 0);
@@ -87,6 +85,7 @@ export default function EditGroup() {
       
           if (response.ok) {
             setID('');
+            router.push('/groups');
           } else {
             setErrors({ form: result.message || 'Failed to add member' });
             console.error('Failed to add member', result.message);
@@ -121,6 +120,7 @@ export default function EditGroup() {
       
           if (response.ok) {
             setName('');
+            router.push('/groups');
           } else {
             setErrors({ form: result.message || 'Failed to create list' });
           }
@@ -159,7 +159,6 @@ export default function EditGroup() {
                         <h2>Add List</h2>
                         <div className="mb-3">
                             <label className="form-label"><b>Name</b></label>
-                            <label className="form-label"><b>Name</b></label>
                                 <input
                                     type="text" 
                                     className="form-control"
@@ -177,6 +176,7 @@ export default function EditGroup() {
                 
             </div>
           </main>
+          <Footer />
           </>
     );
   }

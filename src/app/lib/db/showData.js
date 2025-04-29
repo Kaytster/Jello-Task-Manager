@@ -43,10 +43,18 @@ const recentListTasks = async (IndList_ID) => {
 //The most recent group
 const recentGroup = async (userId) => {
   try {
+      const memberQuery = 'SELECT 1 FROM group_members WHERE User_ID = ? LIMIT 1';
+      const [memberRows] = await pool.execute(memberQuery, [userId]);
+      if (memberRows.length > 0) {
+
       const query = 'SELECT g.* FROM `group` g JOIN group_members gm ON g.Group_ID = gm.Group_ID WHERE gm.User_ID = ? ORDER BY g.Group_ID DESC LIMIT 1';
-      const [rows] = await pool.execute(query, [userId]);
-      if (rows.length > 0) {
-          return rows[0];
+      
+       const [rows] = await pool.execute(query, [userId]);
+          if (rows.length > 0) {
+              return rows[0];
+          } else {
+              return null;
+          }
       } else {
           return null;
       }

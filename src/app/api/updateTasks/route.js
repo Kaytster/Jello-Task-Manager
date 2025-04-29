@@ -12,7 +12,7 @@ export async function POST(request) {
 
         const result = await execute(
             'UPDATE individual_task SET IndTask_Name = ?, IndTask_Content = ? WHERE IndTask_ID = ?',
-            [IndTask_Name, IndTask_Content, IndTask_ID]
+            [IndTask_Name, IndTask_Content, parseInt(IndTask_ID, 10)] 
         );
 
         if (result.affectedRows > 0) {

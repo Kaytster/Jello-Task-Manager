@@ -2,6 +2,7 @@
 "use client";
 import Cookies from 'js-cookie';
 import Header from "../../components/header";
+import Footer from "../../components/footer";
 import 'bootstrap/dist/css/bootstrap.css'
 import '../../globals.css';
 import '../../styles/createtask.css';
@@ -74,7 +75,7 @@ const EditList = () => {
         if (isFormValid) {
             try {
                 console.log('Sending task creation request with userId:', userIdFromCookie, 'and listId:', listId);
-                const response = await fetch('/api/editAtask', { 
+                const response = await fetch('/api/editAlist', { 
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ name: name, content: content, status: 'Incomplete', userId: userIdFromCookie, listId: listId }),
@@ -172,6 +173,9 @@ const EditList = () => {
     //Saves the edited task
     const handleSaveTask = async (taskId) => {
         try {
+            console.log('Task ID being sent for update:', taskId);
+console.log('Edit Task Name:', editTaskName);
+console.log('Edit Task Content:', editTaskContent);
             const response = await fetch('/api/updateTasks', { 
                 method: 'POST', 
                 headers: {
@@ -188,6 +192,7 @@ const EditList = () => {
 
                 setOpenTaskId(null); 
 
+                
                 fetch(`/api/editAtask?listId=${listId}`)
                     .then(response => response.json())
                     .then(data => {
@@ -301,7 +306,7 @@ const EditList = () => {
                                                         onChange={handleEditContentChange}
                                                     />
                                                 </div>
-                                                <button className="btn btn-primary" onClick={() => handleSaveTask(task.IndTask_ID)}>
+                                                <button type='submit' className="btn-primary" onClick={() => handleSaveTask(task.IndTask_ID)}>
                                                     Save
                                                 </button>
                                             </div>
@@ -316,6 +321,7 @@ const EditList = () => {
                             </div>
 
                     </div>
+                    <Footer />
                     </>
 
 

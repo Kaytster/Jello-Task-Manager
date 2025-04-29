@@ -1,6 +1,7 @@
 "use client";
 import Cookies from 'js-cookie';
 import Header from "../components/header";
+import Footer from "../components/footer";
 import 'bootstrap/dist/css/bootstrap.css'
 import '../globals.css';
 import '../styles/createlist.css'
@@ -21,6 +22,7 @@ export default function CreateGroup() {
                     <h1>Please log in!</h1>
                 </div>
               </main>
+              <Footer />
               </>
           )
     } else if (accountTypeString !== 'Group Admin') {
@@ -116,6 +118,7 @@ export default function CreateGroup() {
                 </form>
             </div>
           </main>
+          <Footer />
           </>
     );
   }

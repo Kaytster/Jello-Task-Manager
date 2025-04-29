@@ -32,7 +32,7 @@ form {
     border-style: solid;
     border-width: 2px;
     border-color: var(--colour1);
-    height: 400px;
+    height: fit-content;
     width:600px;
     background-color: whitesmoke;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);

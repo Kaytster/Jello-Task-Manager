@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link.js";
 import Header from "../../../components/header.js";
+import Footer from "../../../components/footer";
 import 'bootstrap/dist/css/bootstrap.css';
 import '../../../globals.css';
 import '../../../styles/viewgroups.css';
@@ -41,7 +42,7 @@ export default function ViewGroup() {
     return <div>Loading group information...</div>;
   }
 
-  const handleCheckboxChange = async (event, taskId, isGroupTask) => {
+  const handleCheckboxChange = async (GrplistId, event, taskId, isGroupTask) => {
     const isChecked = event.target.checked;
     const taskType = isGroupTask ? 'group' : 'individual';
   
@@ -148,6 +149,7 @@ export default function ViewGroup() {
             ))}
           </div>
         </main>
+        <Footer />
         </>
     );
   }

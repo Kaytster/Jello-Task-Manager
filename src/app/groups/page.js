@@ -1,5 +1,6 @@
 'use server'
 import Header from "../components/header.js";
+import Footer from "../components/footer";
 import 'bootstrap/dist/css/bootstrap.css';
 import '../globals.css';
 import '../styles/tasklists.css';
@@ -69,6 +70,7 @@ export default async function GroupList() {
             ))}
           </div>
         </main>
+        <Footer />
         </>
     );
   }

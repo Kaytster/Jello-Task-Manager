@@ -1,6 +1,7 @@
 "use client";
 import Cookies from 'js-cookie';
 import Header from "../components/header";
+import Footer from "../components/footer";
 import 'bootstrap/dist/css/bootstrap.css'
 import '../globals.css';
 import '../styles/createlist.css'
@@ -92,6 +93,7 @@ const CreateList = () => {
                         </form>
                     </div>
                 </main>
+                <Footer />
                 </>
     );
 }

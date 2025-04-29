@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import { recentList, recentListTasks, recentGroup, getGroupMembers, getGroupListsAndTasks } from "../lib/db/showData";
 import React from "react";
 import Header from "../components/header";
+import Footer from "../components/footer";
 import 'bootstrap/dist/css/bootstrap.css'
 import '../globals.css';
 import '../styles/dashboard.css';
@@ -103,7 +104,6 @@ export default async function Home() {
                 </table>
               </div>
             </section>
-                {/* Group */}
             <section className="card" style={{marginRight: '80px'}}>
               <div className="card-body">
                 <div className="card-title">
@@ -160,6 +160,7 @@ export default async function Home() {
             </section>
           </div>
           </main>
+          <Footer />
           </>
     );
   };

@@ -1,5 +1,6 @@
 'use server'
 import Header from "../components/header";
+import Footer from "../components/footer";
 import 'bootstrap/dist/css/bootstrap.css'
 import '../globals.css';
 import '../styles/account.css';
@@ -55,6 +56,7 @@ const cookieStore = cookies();
 ))}
             </div>
         </main>
+        <Footer />
       </>
   );
 }

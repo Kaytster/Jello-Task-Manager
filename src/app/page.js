@@ -1,5 +1,6 @@
 'use client'
 import Header from "./components/header";
+import Footer from "./components/footer";
 import 'bootstrap/dist/css/bootstrap.css'
 import './globals.css';
 import './styles/landing.css';
@@ -45,6 +46,7 @@ export default function Home() {
               </section>
             </div>
         </main>
+        <Footer />
       </>
   );
 }
