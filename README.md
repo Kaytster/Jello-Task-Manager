@@ -29,8 +29,8 @@ For the database, I used MySQL, as I had used it with Next.js before, and I pref
 When users first enter the site, they will open up to the landing page. This prompts the user to either create a new account or login to an existing one.
 When creating an account, the user must enter their details and select if they want to be a standard or admin user as this will affect the functionality of the site.
 The navigation bar is displayed on almost every page, and includes: dashboard, tasklists, groups, create, and account.
-Dashboard - displays a users most recent tasklist and group.
-Tasklists - Here users can view all their tasklists, and make changes to them by adding, modifying or deleting tasks.
-Groups - Groups can only be created and managed by admin users. Groups consist of several members, and can use tasks and tasklists the same way an individual user can, however only admin users can add, modify or delete tasks.
-Create - A simple page with two options: create a tasklist or create a group.
-Account - Users can see their account information and make any changes to it.
+* Dashboard - displays a users most recent tasklist and group.
+* Tasklists - Here users can view all their tasklists, and make changes to them by adding, modifying or deleting tasks.
+* Groups - Groups can only be created and managed by admin users. Groups consist of several members, and can use tasks and * tasklists the same way an individual user can, however only admin users can add, modify or delete tasks.
+* Create - A simple page with two options: create a tasklist or create a group.
+* Account - Users can see their account information and make any changes to it.
