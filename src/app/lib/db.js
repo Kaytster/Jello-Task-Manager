@@ -1,7 +1,8 @@
 import mysql from 'mysql2/promise';
 import bcrypt from 'bcrypt';
 
-const pool = mysql.createPool({
+const pool = mysql.createPool(
+  process.env.DATABASE_URL || {
   host: 'localhost',
   user: 'root',
   password: 'kes12359',
