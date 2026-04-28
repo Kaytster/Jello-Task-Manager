@@ -135,39 +135,24 @@ const verifyAccountCreation = async (
     await execute('START TRANSACTION');
 
     try {
-      const insertAccountQuery = 'INSERT INTO Account (Account_Email, Account_Username, Account_Password, Account_Type) VALUES (?, ?, ?, ?)';
-
-      const [accountResult] = await connection.execute(insertAccountQuery, [email, username, hashedPassword, type]);
-    
-   
-    const accountId = accountResult.insertId;
-
-      const [result] = await execute(insertAccountQuery, [
-        email,
-        username,
-        hashedPassword,
-        type,
-      ]);
-
-      // const getAccountIdQuery = 'SELECT LAST_INSERT_ID()';
-      // const [accountIdResult] = await execute(getAccountIdQuery);
-      // const accountId = accountIdResult[0]['LAST_INSERT_ID()'];
-
-      const insertUserQuery =
-        'INSERT INTO user (User_Fname, User_Lname, Account_ID) VALUES (?, ?, ?)';
-        const [userResult] = await execute(insertUserQuery, [firstname, lastname, accountId]);
-        const userId = userResult.insertId;
+      const insertAccountQuery = 'INSERT INTO account (Account_Email, Account_Username, Account_Password, Account_Type) VALUES (?, ?, ?, ?)';
       
+      const [accountResult] = await execute(insertAccountQuery, [email, username, hashedPassword, type]);
+      
+      const accountId = accountResult.insertId;
+
+      const insertUserQuery = 'INSERT INTO user (User_Fname, User_Lname, Account_ID) VALUES (?, ?, ?)';
+      await execute(insertUserQuery, [firstname, lastname, accountId]);
 
       await execute('COMMIT');
       return true;
     } catch (error) {
-      console.error('Database error during account creation', error);
+      console.error('Database error during account creation:', error);
       await execute('ROLLBACK');
       return false;
     }
   } catch (error) {
-    console.error('Error', error);
+    console.error('Error starting transaction:', error);
     return false;
   }
 };
