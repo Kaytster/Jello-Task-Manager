@@ -66,14 +66,14 @@ const fetchAccounts = async () => {
 const verifyUserCredentials = async (username, password) => {
   try {
     const query = 'SELECT Account_Password FROM account WHERE Account_Username = ?';
-    const [rows] = await execute(query, [username]);
+    const [rows] = await execute(query, [username.trim()]);
 
     if (rows.length === 0) {
       return false; 
     }
 
     const user = rows[0];
-    return await bcrypt.compare(password, user.Account_Password);
+    return await bcrypt.compare(password.trim(), user.Account_Password);
   } catch (error) {
     console.error('Database Error', error);
     throw new Error('Failed to verify user credentials.');
