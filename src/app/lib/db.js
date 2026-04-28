@@ -137,6 +137,11 @@ const verifyAccountCreation = async (
     try {
       const insertAccountQuery = 'INSERT INTO Account (Account_Email, Account_Username, Account_Password, Account_Type) VALUES (?, ?, ?, ?)';
 
+      const [accountResult] = await connection.execute(insertAccountQuery, [email, username, hashedPassword, type]);
+    
+   
+    const accountId = accountResult.insertId;
+
       const [result] = await execute(insertAccountQuery, [
         email,
         username,
@@ -144,9 +149,9 @@ const verifyAccountCreation = async (
         type,
       ]);
 
-      const getAccountIdQuery = 'SELECT LAST_INSERT_ID()';
-      const [accountIdResult] = await execute(getAccountIdQuery);
-      const accountId = accountIdResult[0]['LAST_INSERT_ID()'];
+      // const getAccountIdQuery = 'SELECT LAST_INSERT_ID()';
+      // const [accountIdResult] = await execute(getAccountIdQuery);
+      // const accountId = accountIdResult[0]['LAST_INSERT_ID()'];
 
       const insertUserQuery =
         'INSERT INTO user (User_Fname, User_Lname, Account_ID) VALUES (?, ?, ?)';
